@@ -34,7 +34,7 @@ Imagine a user asking a question to a chatbot: “Hey, what’s on the news toda
 
 I created a new python file and name it as chatbot.py and then import all the required modules. After that I loaded starwarsintents.json data file in our Python program.
 
-import numpy as np
+'''import numpy as np
 import nltk
 from nltk.stem.porter import PorterStemmer
 
@@ -47,7 +47,7 @@ from torch.utils.data import Dataset, DataLoader
 from tkinter import *
 
 with open("starwarsintents.json", "r") as f:
-    intents = json.load(f)
+    intents = json.load(f)'''
 
 ## Preprocessing the Data
 
