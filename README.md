@@ -34,7 +34,8 @@ Imagine a user asking a question to a chatbot: “Hey, what’s on the news toda
 
 I created a new python file and name it as chatbot.py and then import all the required modules. After that I loaded starwarsintents.json data file in our Python program.
 
-'''import numpy as np
+```
+import numpy as np
 import nltk
 from nltk.stem.porter import PorterStemmer
 
@@ -47,7 +48,8 @@ from torch.utils.data import Dataset, DataLoader
 from tkinter import *
 
 with open("starwarsintents.json", "r") as f:
-    intents = json.load(f)'''
+    intents = json.load(f)
+ ```
 
 ## Preprocessing the Data
 
@@ -69,6 +71,7 @@ If we have 3 words like “walk”, “walked”, “walking”, these might see
 We will be splitting each word in the sentences and adding it to an array. We will be using bag of words. Which will initially be a list of zeros with the size equal to the length of the all words array.If we have a array of sentences = ["hello", "how", "are", "you"] and an array of total words = ["hi", "hello", "I", "you", "bye", "thank", "cool"] then its bag of words array will be bog = [ 0 , 1 , 0 , 1 , 0 , 0 , 0].We will loop over the each word in the all words array and the bog array corresponding to each word. If a word from the sentence is found in the all words array, 1 will be replaced at that index/position in bag array. Click here for more information.
 During the the process , we will also use nltk.word_tokenize() which will convert a single sentence string into a list of word. E.g if you pass "hello how are you", it will return ["hello", "how", "are", "you"].
 Note: we will pass lower case words to the stemmer so that words like Good and good (capitalized) won’t be labelled as different words.
+```
 def tokenize(sentence):
     return nltk.word_tokenize(sentence)
 def stem(word):
@@ -82,9 +85,11 @@ def bag_of_words(tokenized_sentence, words):
         if w in sentence_words:
             bag[idx] = 1
     return bag
+```
 
 In order to get the right information, we will be unpacking starwarsintents.json it with the following code.
 
+```
 all_words = []
 tags = []
 xy = []
@@ -101,8 +106,11 @@ for intent in intents["intents"]:
         # add to xy pair
         xy.append((w, tag))
 print(xy)
+```
+
 This will separate all the tags & words into their separate lists
 
+```
 # stem and lower each word
 ignore_words = ["?", ".", "!"]
 all_words = [stem(w) for w in all_words if w not in ignore_words]
@@ -112,11 +120,13 @@ tags = sorted(set(tags))
 print(len(xy), "patterns")
 print(len(tags), "tags:", tags)
 print(len(all_words), "unique stemmed words:", all_words)
+```
 
 Create Training and Testing Data
 
 We will transform the data into a format that our PyTorch Model can easily understand. One hot encoding Is the process of splitting multiclass or multi valued data column to separate columns and labelling the cell 1 in the row where it exists. (we won’t use it so don’t worry about it). Click here to know more about CrossEntopyLoss.
 
+```
 # create training data
 X_train = []
 y_train = []
@@ -131,6 +141,7 @@ X_train = np.array(X_train)
 y_train = np.array(y_train)
 print(X_train)
 print(y_train)
+```
 
 •	PyTorch Model
 	
@@ -164,6 +175,7 @@ It is also instructive to calculate the gradient of the ReLU function, which is 
 
 Creating our model. Here we have inherited a class from NN.Module because we will be customizing the model & its layers
 
+```
 class NeuralNet(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
         super(NeuralNet, self).__init__()
@@ -179,8 +191,11 @@ class NeuralNet(nn.Module):
         out = self.l3(out)
         # no activation and no softmax at the end
         return out
+```
 
 We will use some Magic functions, write our class. You can read online about __getitem__   and  __setitem__  magic funtions. 
+
+```
 class ChatDataset(Dataset):
     def __init__(self):
         self.n_samples = len(X_train)
@@ -192,10 +207,12 @@ class ChatDataset(Dataset):
     # we can call len(dataset) to return the size
     def __len__(self):
         return self.n_samples
+```
 
 Every Neural network has a set of hyper parameters that need to be set before use.
 Before Instantiating our Neural Net Class or Model that we wrote earlier, we will first define some hyper parameters which can be changed accordingly. Click here for more.
 
+```
 # Hyper-parameters
 num_epochs = 1000
 batch_size = 8
@@ -204,12 +221,14 @@ input_size = len(X_train[0])
 hidden_size = 8
 output_size = len(tags)
 print(input_size, output_size)
+```
 
 We will now instantiate the model, loss and optimizer functions.
 
 •	Loss Function: Cross Entropy here
 •	Optimizer: Adam Optimizer here
 
+```
 dataset = ChatDataset()
 train_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True, num_workers=0)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -217,9 +236,11 @@ model = NeuralNet(input_size, hidden_size, output_size).to(device)
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+```
 
 Training Model
 
+```
 # Train the model
 for epoch in range(num_epochs):
     for (words, labels) in train_loader:
@@ -244,14 +265,18 @@ data = {
     "all_words": all_words,
     "tags": tags,
 }
+```
 
 Saving training model.
 
+```
 FILE = "data.pth"
 torch.save(data, FILE)
+```
 
 Loading Data
 
+```
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 with open("starwarsintents.json", "r") as json_data:
     intents = json.load(json_data)
@@ -266,9 +291,11 @@ model_state = data["model_state"]
 model = NeuralNet(input_size, hidden_size, output_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
+```
 
 Our Model is Ready. As our training data was very limited, we can only chat about a handful of topics. You can train it on a bigger dataset to increase the chatbot’s generalization / knowledge.
 
+```
 bot_name = "BARDROID9"
 def get_response(msg):
     sentence = tokenize(msg)
@@ -285,12 +312,14 @@ def get_response(msg):
             if tag == intent["tag"]:
                 return random.choice(intent["responses"])
     return "Sorry, didn't get it..."
+```
 
 Graphic User Interface 
 
 Here you can find beautiful interface created by Patrik Loeber . 
 On same I will advise you to have a look at his tutorials here and GitHub repository.
 
+```
 BG_GRAY = "#ABB2B9"
 BG_COLOR = "#17202A"
 TEXT_COLOR = "#EAECEE"
@@ -370,6 +399,7 @@ class ChatApplication:
 if __name__ == "__main__":
     app = ChatApplication()
     app.run()
+```
 
 Our Model has been trained with very few examples, so it does not understand everything. It is a great start for new learners. Just train this exact model on a bigger dataset & Voila, You'll see the charm .
 
