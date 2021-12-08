@@ -36,7 +36,8 @@ I created a new python file and name it as chatbot.py and then import all the re
 
 import numpy as np
 import nltk
-from nltk.stem.porter import PorterStemmer	
+from nltk.stem.porter import PorterStemmer
+
 stemmer = PorterStemmer()
 import torch
 import torch.nn as nn
@@ -44,6 +45,7 @@ import random
 import json
 from torch.utils.data import Dataset, DataLoader
 from tkinter import *
+
 with open("starwarsintents.json", "r") as f:
     intents = json.load(f)
 
