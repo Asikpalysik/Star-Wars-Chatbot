@@ -55,15 +55,15 @@ with open("starwarsintents.json", "r") as f:
 
 - Creating Custom Functions:
 
-We will create custom Functions so that it is easy for us to implement afterwards. Natural language (nltk) took kit is a really useful library that contains important classes that will be useful in any of your NLP task. To know a bit more about Natural language (nltk). Please click here for more information.
+We will create custom Functions so that it is easy for us to implement afterwards. Natural language (nltk) took kit is a really useful library that contains important classes that will be useful in any of your NLP task. To know a bit more about Natural language (nltk). Please click [here](https://machinelearningmastery.com/natural-language-processing/) for more information.
 
 - Stemming:
 
-If we have 3 words like “walk”, “walked”, “walking”, these might seem different words but they generally have the same meaning and also have the same base form; “walk”. So, in order for our model to understand all different form of the same words we need to train our model with that form. This is called Stemming. There are different methods that we can use for stemming. Here we will use Porter Stemmer model form our NLTK Library. For more information click here.
+If we have 3 words like “walk”, “walked”, “walking”, these might seem different words but they generally have the same meaning and also have the same base form; “walk”. So, in order for our model to understand all different form of the same words we need to train our model with that form. This is called Stemming. There are different methods that we can use for stemming. Here we will use Porter Stemmer model form our NLTK Library. For more information click [here](http://snowball.tartarus.org/algorithms/porter/stemmer.html).
 
 - Bag of Words:
 
-We will be splitting each word in the sentences and adding it to an array. We will be using bag of words. Which will initially be a list of zeros with the size equal to the length of the all words array.If we have a array of sentences = ["hello", "how", "are", "you"] and an array of total words = ["hi", "hello", "I", "you", "bye", "thank", "cool"] then its bag of words array will be bog = [ 0 , 1 , 0 , 1 , 0 , 0 , 0].We will loop over the each word in the all words array and the bog array corresponding to each word. If a word from the sentence is found in the all words array, 1 will be replaced at that index/position in bag array. Click here for more information.
+We will be splitting each word in the sentences and adding it to an array. We will be using bag of words. Which will initially be a list of zeros with the size equal to the length of the all words array.If we have a array of sentences = ["hello", "how", "are", "you"] and an array of total words = ["hi", "hello", "I", "you", "bye", "thank", "cool"] then its bag of words array will be bog = [ 0 , 1 , 0 , 1 , 0 , 0 , 0].We will loop over the each word in the all words array and the bog array corresponding to each word. If a word from the sentence is found in the all words array, 1 will be replaced at that index/position in bag array. Click [here](https://machinelearningmastery.com/gentle-introduction-bag-words-model/) for more information.
 During the the process , we will also use nltk.word_tokenize() which will convert a single sentence string into a list of word. E.g if you pass "hello how are you", it will return ["hello", "how", "are", "you"].
 
 Note: we will pass lower case words to the stemmer so that words like Good and good (capitalized) won’t be labelled as different words.
@@ -123,7 +123,7 @@ print(len(all_words), "unique stemmed words:", all_words)
 
 ## Create Training and Testing Data
 
-We will transform the data into a format that our PyTorch Model can easily understand. One hot encoding Is the process of splitting multiclass or multi valued data column to separate columns and labelling the cell 1 in the row where it exists. (we won’t use it so don’t worry about it). Click here to know more about CrossEntopyLoss.
+We will transform the data into a format that our PyTorch Model can easily understand. One hot encoding Is the process of splitting multiclass or multi valued data column to separate columns and labelling the cell 1 in the row where it exists. (we won’t use it so don’t worry about it). Click [here](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html) to know more about CrossEntopyLoss.
 
 ```
 # create training data
@@ -145,16 +145,16 @@ print(y_train)
 
 - PyTorch Model
 	
-Here we will be making a class to implement our custom Neural Network. It will be a Feed Forward Neural Network which will have 3 Linear Layers and we will be using activation function “ReLU”. For more click here.
+Here we will be making a class to implement our custom Neural Network. It will be a Feed Forward Neural Network which will have 3 Linear Layers and we will be using activation function “ReLU”. For more click [here](https://machinelearningmastery.com/pytorch-tutorial-develop-deep-learning-models/).
 
 - Feed Forward Neural Network
 
-A feedforward neural network is an artificial neural network wherein connections between the nodes do not form a cycle. As such, it is different from its descendant: recurrent neural networks.The feedforward neural network was the first and simplest type of artificial neural network devised In this network, the information moves in only one direction—forward—from the input nodes, through the hidden nodes (if any) and to the output nodes. There are no cycles or loops in the network. Click here to know more.
+A feedforward neural network is an artificial neural network wherein connections between the nodes do not form a cycle. As such, it is different from its descendant: recurrent neural networks.The feedforward neural network was the first and simplest type of artificial neural network devised In this network, the information moves in only one direction—forward—from the input nodes, through the hidden nodes (if any) and to the output nodes. There are no cycles or loops in the network. Click [here](https://brilliant.org/wiki/feedforward-neural-networks/) to know more.
 
 - Activation Function
 
 An activation function is a function used in artificial neural networks which outputs a small value for small inputs, and a larger value if its inputs exceed a threshold. If the inputs are large enough, the activation function "fires", otherwise it does nothing. In other words, an activation function is like a gate that checks that an incoming value is greater than a critical number. 
-Activation functions are useful because they add non-linearities into neural networks, allowing the neural networks to learn powerful operations. If the activation functions were to be removed from a feedforward neural network, the entire network could be re-factored to a simple linear operation or matrix transformation on its input, and it would no longer be capable of performing complex tasks such as image recognition. Some more information here.
+Activation functions are useful because they add non-linearities into neural networks, allowing the neural networks to learn powerful operations. If the activation functions were to be removed from a feedforward neural network, the entire network could be re-factored to a simple linear operation or matrix transformation on its input, and it would no longer be capable of performing complex tasks such as image recognition. Some more information [here](https://machinelearningmastery.com/choose-an-activation-function-for-deep-learning/).
 
 - ReLU Function:
 
@@ -163,7 +163,7 @@ Mathematical definition of the ReLU Function
 
 <img width="113" alt="image" src="https://user-images.githubusercontent.com/91852182/145213416-8d4ca11e-e9f9-4e98-a6b3-665c6ad9d7c9.png">
 
-Graph of the ReLU function, showing its flat gradient for negative x. For more click here.
+Graph of the ReLU function, showing its flat gradient for negative x. For more click [here](https://machinelearningmastery.com/rectified-linear-activation-function-for-deep-learning-neural-networks/).
 
 <img width="253" alt="image" src="https://user-images.githubusercontent.com/91852182/145213435-94a5d78d-be5c-4897-b360-fe89132a5a57.png">
 
@@ -193,7 +193,7 @@ class NeuralNet(nn.Module):
         return out
 ```
 
-We will use some Magic functions, write our class. You can read online about __getitem__   and  __setitem__  magic funtions. 
+We will use some Magic functions, write our class. You can read online about [__getitem__](https://newbedev.com/understanding-getitem-method)   and  [__setitem__](https://www.codespeedy.com/__setitem__-and-__getitem__-in-python-with-example/)  magic funtions. 
 
 ```
 class ChatDataset(Dataset):
@@ -210,7 +210,7 @@ class ChatDataset(Dataset):
 ```
 
 Every Neural network has a set of hyper parameters that need to be set before use.
-Before Instantiating our Neural Net Class or Model that we wrote earlier, we will first define some hyper parameters which can be changed accordingly. Click here for more.
+Before Instantiating our Neural Net Class or Model that we wrote earlier, we will first define some hyper parameters which can be changed accordingly. Click [here](https://towardsdatascience.com/understanding-hyperparameters-and-its-optimisation-techniques-f0debba07568) for more.
 
 ```
 # Hyper-parameters
@@ -225,8 +225,8 @@ print(input_size, output_size)
 
 We will now instantiate the model, loss and optimizer functions.
 
-- Loss Function: Cross Entropy here
-- Optimizer: Adam Optimizer here
+- Loss Function: Cross Entropy [here](https://machinelearningmastery.com/cross-entropy-for-machine-learning/)
+- Optimizer: Adam Optimizer [here](https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/)
 
 ```
 dataset = ChatDataset()
@@ -317,8 +317,8 @@ def get_response(msg):
 
 ## Graphic User Interface 
 
-Here you can find beautiful interface created by Patrik Loeber . 
-On same I will advise you to have a look at his tutorials here and GitHub repository.
+Here you can find beautiful interface created by [Patrik Loeber](https://github.com/python-engineer) . 
+On same I will advise you to have a look at his tutorials [here](https://www.youtube.com/watch?v=RpWeNzfSUHw&list=PLqnslRFeH2UrFW4AUgn-eY37qOAWQpJyg) and [GitHub](https://github.com/python-engineer/pytorch-chatbot) repository.
 
 ```
 BG_GRAY = "#ABB2B9"
@@ -425,6 +425,10 @@ Tell me a joke!
 Tell me a story?
 See you later?
 abra cadabra
+
+<img width="209" alt="image" src="https://user-images.githubusercontent.com/91852182/145215025-be0767d9-5047-476f-8ae1-51ec401b9236.png">
+
+<img width="212" alt="image" src="https://user-images.githubusercontent.com/91852182/145215035-7c5ad31a-b575-4c0e-9c5e-d95989fe4a10.png">
 
 ## Summery
 
