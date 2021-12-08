@@ -14,21 +14,21 @@ Chatbots are basically AI intelligence bots which can interact with the user or 
 
 ## There are basically two types of Chatbots :
 
--Command based: Chatbots that function on predefined rules and can answer to only limited queries or questions. Users need to select an option to determine their next step.
--Intelligent/AI Chatbots: Chatbots that leverage Machine Learning and Natural Language Understanding to understand the user’s language and are intelligent enough to learn from conversations with their users. You can converse via text, speech or even interact with a chatbot using graphical interfaces.
+- Command based: Chatbots that function on predefined rules and can answer to only limited queries or questions. Users need to select an option to determine their next step.
+- Intelligent/AI Chatbots: Chatbots that leverage Machine Learning and Natural Language Understanding to understand the user’s language and are intelligent enough to learn from conversations with their users. You can converse via text, speech or even interact with a chatbot using graphical interfaces.
 
 All chatbots come under the NLP (Natural Language Processing) concepts. NLP is composed of two things:
-•	NLU (Natural Language Understanding): The ability of machines to understand human language like English.
-•	NLG (Natural Language Generation): The ability of a machine to generate text similar to human written sentences
+- NLU (Natural Language Understanding): The ability of machines to understand human language like English.
+- NLG (Natural Language Generation): The ability of a machine to generate text similar to human written sentences
 Imagine a user asking a question to a chatbot: “Hey, what’s on the news today?” The chatbot will break down the user sentence into two things: intent and an entity. The intent for this sentence could be get_news as it refers to an action the user wants to perform. The entity tells specific details about the intent, so "today" will be the entity. So this way, a machine learning model is used to recognize the intents and entities of the chat.
 
 ## Strategy
 
-•	Import Libraries and Load the Data
-•	Preprocessing the Data
-•	Create Training and Testing Data
-•	Training the Model
-•	Graphical user interface
+- Import Libraries and Load the Data
+- Preprocessing the Data
+- Create Training and Testing Data
+- Training the Model
+- Graphical user interface
 
 ## Import Libraries and Load the Data
 
@@ -53,24 +53,21 @@ with open("starwarsintents.json", "r") as f:
 
 ## Preprocessing the Data
 
-•	Creating Custom Functions:
+- Creating Custom Functions:
 
 We will create custom Functions so that it is easy for us to implement afterwards. Natural language (nltk) took kit is a really useful library that contains important classes that will be useful in any of your NLP task. To know a bit more about Natural language (nltk). Please click here for more information.
 
-•	Stemming:
+- Stemming:
 
 If we have 3 words like “walk”, “walked”, “walking”, these might seem different words but they generally have the same meaning and also have the same base form; “walk”. So, in order for our model to understand all different form of the same words we need to train our model with that form. This is called Stemming. There are different methods that we can use for stemming. Here we will use Porter Stemmer model form our NLTK Library. For more information click here.
 
-
-
-
-
-
-•	Bag of Words:
+- Bag of Words:
 
 We will be splitting each word in the sentences and adding it to an array. We will be using bag of words. Which will initially be a list of zeros with the size equal to the length of the all words array.If we have a array of sentences = ["hello", "how", "are", "you"] and an array of total words = ["hi", "hello", "I", "you", "bye", "thank", "cool"] then its bag of words array will be bog = [ 0 , 1 , 0 , 1 , 0 , 0 , 0].We will loop over the each word in the all words array and the bog array corresponding to each word. If a word from the sentence is found in the all words array, 1 will be replaced at that index/position in bag array. Click here for more information.
 During the the process , we will also use nltk.word_tokenize() which will convert a single sentence string into a list of word. E.g if you pass "hello how are you", it will return ["hello", "how", "are", "you"].
+
 Note: we will pass lower case words to the stemmer so that words like Good and good (capitalized) won’t be labelled as different words.
+
 ```
 def tokenize(sentence):
     return nltk.word_tokenize(sentence)
@@ -107,6 +104,7 @@ for intent in intents["intents"]:
         xy.append((w, tag))
 print(xy)
 ```
+<img width="462" alt="image" src="https://user-images.githubusercontent.com/91852182/145213300-7925c8b2-3a65-4142-bbfe-646f36195b53.png">
 
 This will separate all the tags & words into their separate lists
 
@@ -121,8 +119,9 @@ print(len(xy), "patterns")
 print(len(tags), "tags:", tags)
 print(len(all_words), "unique stemmed words:", all_words)
 ```
+<img width="462" alt="image" src="https://user-images.githubusercontent.com/91852182/145213333-c29517ee-988b-4463-b891-7955dc7c5afb.png">
 
-Create Training and Testing Data
+## Create Training and Testing Data
 
 We will transform the data into a format that our PyTorch Model can easily understand. One hot encoding Is the process of splitting multiclass or multi valued data column to separate columns and labelling the cell 1 in the row where it exists. (we won’t use it so don’t worry about it). Click here to know more about CrossEntopyLoss.
 
@@ -142,36 +141,37 @@ y_train = np.array(y_train)
 print(X_train)
 print(y_train)
 ```
+<img width="462" alt="image" src="https://user-images.githubusercontent.com/91852182/145213355-f5dd49cb-6070-40d9-b8ea-2062819f6fbd.png">
 
-•	PyTorch Model
+- PyTorch Model
 	
 Here we will be making a class to implement our custom Neural Network. It will be a Feed Forward Neural Network which will have 3 Linear Layers and we will be using activation function “ReLU”. For more click here.
 
-•	Feed Forward Neural Network
+- Feed Forward Neural Network
 
 A feedforward neural network is an artificial neural network wherein connections between the nodes do not form a cycle. As such, it is different from its descendant: recurrent neural networks.The feedforward neural network was the first and simplest type of artificial neural network devised In this network, the information moves in only one direction—forward—from the input nodes, through the hidden nodes (if any) and to the output nodes. There are no cycles or loops in the network. Click here to know more.
 
-•	Activation Function
+- Activation Function
 
 An activation function is a function used in artificial neural networks which outputs a small value for small inputs, and a larger value if its inputs exceed a threshold. If the inputs are large enough, the activation function "fires", otherwise it does nothing. In other words, an activation function is like a gate that checks that an incoming value is greater than a critical number. 
 Activation functions are useful because they add non-linearities into neural networks, allowing the neural networks to learn powerful operations. If the activation functions were to be removed from a feedforward neural network, the entire network could be re-factored to a simple linear operation or matrix transformation on its input, and it would no longer be capable of performing complex tasks such as image recognition. Some more information here.
 
-•	ReLU Function:
+- ReLU Function:
 
 There are a number of widely used activation functions in deep learning today. One of the simplest is the rectified linear unit, or ReLU function which is a piece wise linear function that outputs zero if its input is negative, and directly outputs the input otherwise:
 Mathematical definition of the ReLU Function
+
+<img width="113" alt="image" src="https://user-images.githubusercontent.com/91852182/145213416-8d4ca11e-e9f9-4e98-a6b3-665c6ad9d7c9.png">
+
 Graph of the ReLU function, showing its flat gradient for negative x. For more click here.
 
+<img width="253" alt="image" src="https://user-images.githubusercontent.com/91852182/145213435-94a5d78d-be5c-4897-b360-fe89132a5a57.png">
 
-
-
-
-
-•	ReLU Function Derivative:
+- ReLU Function Derivative:
 
 It is also instructive to calculate the gradient of the ReLU function, which is mathematically undefined at x = 0 but which is still extremely useful in neural networks.The derivative of the ReLU function. In practice the derivative at x = 0 can be set to either 0 or 1. The zero derivative for negative x can give rise to problems when training a neural network, since a neuron can become 'trapped' in the zero region and backpropagation will never change its weights.
 
-
+<img width="254" alt="image" src="https://user-images.githubusercontent.com/91852182/145213465-e391fef4-9ea4-4900-88fd-06a3541f7527.png">
 
 Creating our model. Here we have inherited a class from NN.Module because we will be customizing the model & its layers
 
@@ -225,8 +225,8 @@ print(input_size, output_size)
 
 We will now instantiate the model, loss and optimizer functions.
 
-•	Loss Function: Cross Entropy here
-•	Optimizer: Adam Optimizer here
+- Loss Function: Cross Entropy here
+- Optimizer: Adam Optimizer here
 
 ```
 dataset = ChatDataset()
@@ -238,7 +238,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 ```
 
-Training Model
+## Training Model
 
 ```
 # Train the model
@@ -266,6 +266,7 @@ data = {
     "tags": tags,
 }
 ```
+<img width="224" alt="image" src="https://user-images.githubusercontent.com/91852182/145213524-43bb93ef-43fb-4360-9c4c-83dfe2019182.png">
 
 Saving training model.
 
@@ -314,7 +315,7 @@ def get_response(msg):
     return "Sorry, didn't get it..."
 ```
 
-Graphic User Interface 
+## Graphic User Interface 
 
 Here you can find beautiful interface created by Patrik Loeber . 
 On same I will advise you to have a look at his tutorials here and GitHub repository.
@@ -403,12 +404,7 @@ if __name__ == "__main__":
 
 Our Model has been trained with very few examples, so it does not understand everything. It is a great start for new learners. Just train this exact model on a bigger dataset & Voila, You'll see the charm .
 
-
-
-
-
-Questions for Chatbot as an Example
-
+## Questions for Chatbot as an Example
 
 Hello!
 What can you do?
@@ -430,29 +426,18 @@ Tell me a story?
 See you later?
 abra cadabra
 
-
-
-
-
-
-
-
-
-
-
-
-Summery
+## Summery
 
 So now we have a chatbot framework, a recipe for making it a stateful service, and a starting-point for adding context. Most chatbot frameworks in the future will treat context seamlessly. Think of creative ways for intents to impact and react to different context settings. Your users’ context dictionary can contain a wide-variety of conversation context.
 
-Files
+## Files
 
-starwarsintents.json
-Chatbot.py
-Chatbot.ipynb
-data.pth
+- starwarsintents.json
+- Chatbot.py
+- Chatbot.ipynb
+- data.pth
 
-References
+## References
 
 https://machinelearningmastery.com/natural-language-processing/
 http://snowball.tartarus.org/algorithms/porter/stemmer.html
